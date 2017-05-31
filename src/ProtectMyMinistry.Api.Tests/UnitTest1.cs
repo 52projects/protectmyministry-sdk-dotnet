@@ -17,7 +17,7 @@ namespace ProtectMyMinistry.Api.Tests {
             var order = new Order();
             order.BillingReference = "1234";
             order.ID = "123456";
-            order.ReturnResultUrl = "http://google.com";
+            order.ReturnResultUrl = "https://google.com";
             order.PackageServiceCode = "PLUS";
             order.OrderSubject = new OrderSubject {
                 FirstName = "John",

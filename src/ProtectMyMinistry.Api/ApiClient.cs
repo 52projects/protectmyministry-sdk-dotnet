@@ -24,9 +24,9 @@ namespace ProtectMyMinistry.Api {
             var webClient = new WebClient();
             webClient.Encoding = new UTF8Encoding(false);
             webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            var encodedXml = HttpUtility.UrlEncode(orderXml);
+            //var encodedXml = HttpUtility.UrlEncode(orderXml);
             var nvc = new NameValueCollection();
-            nvc.Add("REQUEST", encodedXml);
+            nvc.Add("REQUEST", orderXml);
 
             var responseBytes = webClient.UploadValues(this.PostUrl, "POST", nvc);
             var responseString = HttpUtility.UrlDecode(webClient.Encoding.GetString(responseBytes));
