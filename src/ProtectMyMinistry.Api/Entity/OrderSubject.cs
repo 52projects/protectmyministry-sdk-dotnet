@@ -58,6 +58,11 @@ namespace ProtectMyMinistry.Api.Entity {
         public string DLNumber { get; set; }
 
         /// <summary>
+        /// Email address. Required.
+        /// </summary>
+        public string EmailAddress { get; set; }
+
+        /// <summary>
         /// Current street address for applicant.
         /// </summary>
         public string StreetAddress { get; set; }
@@ -120,6 +125,10 @@ namespace ProtectMyMinistry.Api.Entity {
             var applicantPositionNode = doc.CreateElement("ApplicantPosition");
             applicantPositionNode.InnerText = this.ApplicantPosition;
             subjectNode.AppendChild(applicantPositionNode);
+
+            var emailAddressNode = doc.CreateElement("EmailAddress");
+            emailAddressNode.InnerText = this.EmailAddress;
+            subjectNode.AppendChild(emailAddressNode);
 
             var currentAddressNode = doc.CreateElement("CurrentAddress");
 
