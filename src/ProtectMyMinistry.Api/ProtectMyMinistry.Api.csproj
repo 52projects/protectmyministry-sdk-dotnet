@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ApiClient.cs" />
     <Compile Include="Entity\ComboOrderDetail.cs" />
+    <Compile Include="Entity\StateCriminalOrderDetail.cs" />
     <Compile Include="Entity\CountyCriminalOrderDetail.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\OrderDetail.cs" />
