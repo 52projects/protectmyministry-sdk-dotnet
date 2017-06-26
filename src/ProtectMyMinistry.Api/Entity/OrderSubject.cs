@@ -95,7 +95,7 @@ namespace ProtectMyMinistry.Api.Entity {
             subjectNode.AppendChild(firstNameNode);
 
             var middleNameNode = doc.CreateElement("Middlename");
-            middleNameNode.InnerText = this.MiddleName;
+            middleNameNode.InnerText = string.IsNullOrWhiteSpace(this.MiddleName) ? "NMN" : this.MiddleName;
             subjectNode.AppendChild(middleNameNode);
 
             var lastNameNode = doc.CreateElement("Lastname");
