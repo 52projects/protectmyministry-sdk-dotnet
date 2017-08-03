@@ -55,14 +55,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProtectMyMinistry.Api\ProtectMyMinistry.Api.csproj">
+    <None Include="app.config" />
+    <None Include="credentials.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ProtectMyMinistry.Api\ProtectMyMinistry.Api.csproj">
       <Project>{d3c05dd8-a6ad-4893-9b42-6afcf3e4d421}</Project>
       <Name>ProtectMyMinistry.Api</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="credentials.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
