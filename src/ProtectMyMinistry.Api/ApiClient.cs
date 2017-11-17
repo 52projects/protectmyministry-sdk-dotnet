@@ -18,7 +18,7 @@ namespace ProtectMyMinistry.Api {
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public string SendOrder(Order order) {
+        public SendOrderResult SendOrder(Order order) {
             var orderXml = this.OrderToXml(order);
 
             var webClient = new WebClient();
@@ -31,7 +31,12 @@ namespace ProtectMyMinistry.Api {
             var responseBytes = webClient.UploadValues(this.PostUrl, "POST", nvc);
             var responseString = HttpUtility.UrlDecode(webClient.Encoding.GetString(responseBytes));
 
-            return responseString;
+            var result = new SendOrderResult {
+                Request = orderXml,
+                Response = responseString
+            };
+
+            return result;
         }
 
         private string OrderToXml(Order order) {
@@ -103,6 +108,11 @@ namespace ProtectMyMinistry.Api {
             public override Encoding Encoding {
                 get { return encoding; }
             }
+        }
+
+        public class SendOrderResult {
+            public string Request { get; set; }
+            public string Response { get; set; }
         }
     }
 }

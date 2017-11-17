@@ -46,7 +46,7 @@ namespace ProtectMyMinistry.Api.Tests {
                 }
             };
 
-            var response = client.SendOrder(order);
+            var result = client.SendOrder(order);
         }
 
         public string GetConfigValue(string key, bool failOnNull = true) {
