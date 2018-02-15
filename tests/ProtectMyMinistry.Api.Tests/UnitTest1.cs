@@ -18,13 +18,14 @@ namespace ProtectMyMinistry.Api.Tests {
             order.BillingReference = "1234";
             order.ID = "123456";
             order.ReturnResultUrl = "https://google.com";
-            order.PackageServiceCode = "PLUS";
+            order.PackageServiceCode = "Confidence County";
             order.OrderSubject = new OrderSubject {
                 FirstName = "John",
                 MiddleName = "Robert",
                 LastName = "Smith",
                 Generation = "Jr.",
                 DOB = new DateTime(1975,12,31),
+                DLNumber = "123352623",
                 SSN = "123-45-6789",
                 Gender = "Male",
                 Ethnicity = "Caucasian",
@@ -42,7 +43,8 @@ namespace ProtectMyMinistry.Api.Tests {
                     YearsToSearch = 7,
                     RequestCourtDocuments = false,
                     RushRequest = false,
-                    SpecialInstructions = "Special Instructions"
+                    SpecialInstructions = "Special Instructions",
+                    JurisdictionCode = "AZ39M",
                 }
             };
 

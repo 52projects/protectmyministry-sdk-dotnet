@@ -9,6 +9,7 @@ namespace ProtectMyMinistry.Api.Entity {
     public class CountyCriminalOrderDetail : OrderDetail {
         public string County { get; set; }
         public string State { get; set; }
+        public string JurisdictionCode { get; set; }
         public int? YearsToSearch { get; set; }
         public bool RequestCourtDocuments { get; set; }
         public bool RushRequest { get; set; }
@@ -44,6 +45,12 @@ namespace ProtectMyMinistry.Api.Entity {
             var specialInstructionsNode = doc.CreateElement("SpecialInstructions");
             specialInstructionsNode.InnerText = this.SpecialInstructions;
             orderDetailNode.AppendChild(specialInstructionsNode);
+
+            if (!string.IsNullOrEmpty(JurisdictionCode)) {
+                var jurisdictionCodeNode = doc.CreateElement("JurisdictionCode");
+                jurisdictionCodeNode.InnerText = this.JurisdictionCode;
+                orderDetailNode.AppendChild(jurisdictionCodeNode);
+            }
 
             return orderDetailNode;
         }

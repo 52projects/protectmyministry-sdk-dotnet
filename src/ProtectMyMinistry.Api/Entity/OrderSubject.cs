@@ -118,9 +118,17 @@ namespace ProtectMyMinistry.Api.Entity {
             genderNode.InnerText = this.Gender;
             subjectNode.AppendChild(genderNode);
 
-            var ethnicityNode = doc.CreateElement("Ethnicity");
-            ethnicityNode.InnerText = this.Ethnicity;
-            subjectNode.AppendChild(ethnicityNode);
+            if (!string.IsNullOrEmpty(Ethnicity)) {
+                var ethnicityNode = doc.CreateElement("Ethnicity");
+                ethnicityNode.InnerText = this.Ethnicity;
+                subjectNode.AppendChild(ethnicityNode);
+            }
+
+            if (!string.IsNullOrEmpty(DLNumber)) {
+                var dlNumberNode = doc.CreateElement("DLNumber");
+                dlNumberNode.InnerText = this.DLNumber;
+                subjectNode.AppendChild(dlNumberNode);
+            }
 
             var applicantPositionNode = doc.CreateElement("ApplicantPosition");
             applicantPositionNode.InnerText = this.ApplicantPosition;
