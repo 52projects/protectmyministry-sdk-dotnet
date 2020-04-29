@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
 
-namespace ProtectMyMinistry.Api {
-    public class ApiClient {
+namespace ProtectMyMinistry.Api
+{
+    public class ApiClient
+    {
         public string PostUrl { get; set; }
         public bool IsTesting { get; set; }
 
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public SendOrderResult SendOrder(Order order) {
+        public SendOrderResult SendOrder(Order order)
+        {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11;
+
             var orderXml = this.OrderToXml(order);
 
             var webClient = new WebClient();
@@ -31,7 +36,8 @@ namespace ProtectMyMinistry.Api {
             var responseBytes = webClient.UploadValues(this.PostUrl, "POST", nvc);
             var responseString = HttpUtility.UrlDecode(webClient.Encoding.GetString(responseBytes));
 
-            var result = new SendOrderResult {
+            var result = new SendOrderResult
+            {
                 Request = orderXml,
                 Response = responseString
             };
@@ -39,7 +45,8 @@ namespace ProtectMyMinistry.Api {
             return result;
         }
 
-        private string OrderToXml(Order order) {
+        private string OrderToXml(Order order)
+        {
             var doc = new XmlDocument();
 
             XmlElement el = (XmlElement)doc.AppendChild(doc.CreateElement("OrderXML"));
@@ -57,14 +64,15 @@ namespace ProtectMyMinistry.Api {
             authenticationNode.AppendChild(passwordNode);
             el.AppendChild(authenticationNode);
 
-            if (this.IsTesting) {
+            if (this.IsTesting)
+            {
                 var testingNode = doc.CreateElement("TestMode");
                 testingNode.InnerText = this.IsTesting ? "YES" : "NO";
                 el.AppendChild(testingNode);
             }
 
             var returnResultURLNode = doc.CreateElement("ReturnResultURL");
-            returnResultURLNode.InnerText =order.ReturnResultUrl;
+            returnResultURLNode.InnerText = order.ReturnResultUrl;
             el.AppendChild(returnResultURLNode);
 
             var orderNode = doc.CreateElement("Order");
@@ -81,7 +89,8 @@ namespace ProtectMyMinistry.Api {
             packageServiceCodeNode.SetAttribute("orderid", order.ID);
             orderNode.AppendChild(packageServiceCodeNode);
 
-            foreach (var orderDetail in order.OrderDetails) {
+            foreach (var orderDetail in order.OrderDetails)
+            {
                 var orderDetailNode = orderDetail.ToXml(doc, order.ID);
                 orderNode.AppendChild(orderDetailNode);
             }
@@ -89,19 +98,24 @@ namespace ProtectMyMinistry.Api {
             el.AppendChild(orderNode);
 
             using (var stringWriter = new StringWriterWithEncoding(Encoding.UTF8))
-            using (var xmlTextWriter = XmlWriter.Create(stringWriter)) {
+            using (var xmlTextWriter = XmlWriter.Create(stringWriter))
+            {
                 doc.WriteTo(xmlTextWriter);
                 xmlTextWriter.Flush();
                 return stringWriter.GetStringBuilder().ToString();
             }
         }
 
-        public sealed class StringWriterWithEncoding : StringWriter {
+        public sealed class StringWriterWithEncoding : StringWriter
+        {
             private readonly Encoding encoding;
 
-            public StringWriterWithEncoding() : this(Encoding.UTF8) { }
+            public StringWriterWithEncoding() : this(Encoding.UTF8)
+            {
+            }
 
-            public StringWriterWithEncoding(Encoding encoding) {
+            public StringWriterWithEncoding(Encoding encoding)
+            {
                 this.encoding = encoding;
             }
 
@@ -110,7 +124,8 @@ namespace ProtectMyMinistry.Api {
             }
         }
 
-        public class SendOrderResult {
+        public class SendOrderResult
+        {
             public string Request { get; set; }
             public string Response { get; set; }
         }
